@@ -26,7 +26,8 @@ class App extends React.Component {
             </Nav>
           </Navbar>
 
-          <Switch>
+          {/* client side routing allows a single page application to make use of browser "back" button*/}
+          <Switch> 
             <Route exact path="/" component={Header} />
             <Route path="/create" component={Create} />
             <Route path="/read" component={Read} />
