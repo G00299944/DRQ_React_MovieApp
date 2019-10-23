@@ -1,5 +1,6 @@
 import React from 'react';
 import '../App.css';
+import axios from 'axios'; // http client
 
 class Create extends React.Component {
   constructor(props) {
@@ -32,6 +33,23 @@ class Create extends React.Component {
   handleSubmit(e) {
     alert('Title: ' + this.state.Title + "\nYear: " + this.state.Year + "\nPoster URL: " + this.state.Poster);
     e.preventDefault();
+
+    const newMovie = {
+      title: this.state.Title,
+      year: this.state.Year,
+      poster: this.state.Poster
+    }
+
+    axios.post('http://localhost:4000/api/movies', newMovie)
+      .then()
+      .catch();
+
+    this.setState({
+      Title: '',
+      Year: '',
+      Poster: ''
+    })
+
   }
 
 
