@@ -11,11 +11,12 @@ class MovieItem extends React.Component {
                 <img src={this.props.movie.Poster}></img> */}
 
                 <Card style={{ width: '18rem' }}>
-                    <Card.Img variant="top" src={this.props.movie.Poster} />
+                    <Card.Img variant="top" src={this.props.movie.poster} />
+                    {/* <img src={this.props.movie.Poster}></img> */}
                     <Card.Body>
-                        <Card.Title>{this.props.movie.Title}</Card.Title>
+                        <Card.Title>{this.props.movie.title}</Card.Title>
                         <Card.Text>
-                            {this.props.movie.Year}
+                            {this.props.movie.year}
                         </Card.Text>
                     </Card.Body>
                 </Card>

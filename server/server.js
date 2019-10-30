@@ -3,6 +3,10 @@ const app = express();
 const port = 4000;
 const path = require('path'); //this gets the current directory 
 const bodyParser = require('body-parser');
+const mongoose = require("mongoose");
+
+const mongodb = "mongodb+srv://fred:fred@cluster0-9zu60.mongodb.net/test?retryWrites=true&w=majority"; //lab8
+mongoose.connect(mongodb, {useNewUrlParser:true});
 
 /*  This code block was taken from lab sheet
     adds cors headers 
@@ -18,6 +22,16 @@ app.use(function (req, res, next) {
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+const Schema = mongoose.Schema;
+
+const movieSchema = new Schema({
+    title:String,
+    year:String,
+    poster:String
+});
+
+const MovieModel = mongoose.model("movie", movieSchema);
+
 app.get('/', (req, res) => res.send('Hello World!'));
 
 app.get('/test', (req, res) => {
@@ -30,9 +44,12 @@ app.get('/hello/:name', (req, res) => {
 })
 
 app.get('/api/movies', (req, res) => {
-    const myMovies = [{ "Title": "Avengers: Infinity War", "Year": "2018", "Poster": "https://m.media-amazon.com/images/M/MV5BMjMxNjY2MDU1OV5BMl5BanBnXkFtZTgwNzY1MTUwNTM@._V1_SX300.jpg" }, { "Title": "Captain America: Civil War", "Year": "2016", "Poster": "https://m.media-amazon.com/images/M/MV5BMjQ0MTgyNjAxMV5BMl5BanBnXkFtZTgwNjUzMDkyODE@._V1_SX300.jpg" }]
+    // const myMovies = [{ "Title": "Avengers: Infinity War", "Year": "2018", "Poster": "https://m.media-amazon.com/images/M/MV5BMjMxNjY2MDU1OV5BMl5BanBnXkFtZTgwNzY1MTUwNTM@._V1_SX300.jpg" }, { "Title": "Captain America: Civil War", "Year": "2016", "Poster": "https://m.media-amazon.com/images/M/MV5BMjQ0MTgyNjAxMV5BMl5BanBnXkFtZTgwNjUzMDkyODE@._V1_SX300.jpg" }]
+    // res.status(200).json({ movies: myMovies }); // HARDCODED MOVIE DATA
 
-    res.status(200).json({ movies: myMovies });
+    MovieModel.find((error, data) => {
+        res.json({movies:data});
+    })
 })
 
 app.post('/api/movies', (req, res) => {
@@ -41,6 +58,22 @@ app.post('/api/movies', (req, res) => {
     console.log(req.body.title);
     console.log(req.body.year);
     console.log(req.body.poster);
+
+
+    MovieModel.create({ //lab 8
+        title: req.body.title,
+        year: req.body.year,
+        poster: req.body.poster
+    });
+    res.json("Data Uploaded");
+})
+
+app.get("/api/movies/:id", (req, res) => {
+    console.log(req.params.id);
+
+    MovieModel.findById(req.params.id, (error, data) => { //todo: log errors to console
+        res.json(data);
+    })
 })
 
 app.get('/test_html', (req, res) => {
