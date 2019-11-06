@@ -11,6 +11,9 @@ import Nav from 'react-bootstrap/Nav';
 import { Switch, Route, BrowserRouter } from 'react-router-dom'
 import Create from './components/Create';
 import Read from './components/Read';
+import Edit from './components/Edit';
+
+
 
 
 class App extends React.Component {
@@ -31,6 +34,7 @@ class App extends React.Component {
             <Route exact path="/" component={Header} />
             <Route path="/create" component={Create} />
             <Route path="/read" component={Read} />
+            <Route path="/edit/:id" component={Edit} />
           </Switch>
         </div>
       </BrowserRouter>

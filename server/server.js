@@ -68,6 +68,18 @@ app.post('/api/movies', (req, res) => {
     res.json("Data Uploaded");
 })
 
+app.delete('/api/movies/:id', (req, res) => {
+    console.log(req.params.id);
+
+    MovieModel.deleteOne({_id: req.params.id}, (error, data) => {
+        if(error) {
+            res.json(error);
+        }
+        res.json(data);
+    })
+    
+})
+
 app.get("/api/movies/:id", (req, res) => {
     console.log(req.params.id);
 
