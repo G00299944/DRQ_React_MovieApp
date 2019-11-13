@@ -68,6 +68,14 @@ app.post('/api/movies', (req, res) => {
     res.json("Data Uploaded");
 })
 
+app.put('/api/movies/:id', (req, res) => {
+    console.log("Edit: " + req.params.id);
+
+    MovieModel.findByIdAndUpdate(req.params.id, req.body, {new: true}, (error, data) => {
+        res.json(data);
+    })
+})
+
 app.delete('/api/movies/:id', (req, res) => {
     console.log(req.params.id);
 
@@ -80,7 +88,7 @@ app.delete('/api/movies/:id', (req, res) => {
     
 })
 
-app.get("/api/movies/:id", (req, res) => {
+app.get("/api/movies/:id", (req, res) => { 
     console.log(req.params.id);
 
     MovieModel.findById(req.params.id, (error, data) => { //todo: log errors to console

@@ -5,7 +5,7 @@ import axios from 'axios'; // http client
 class Create extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { Title: '', Year: '' };
+    this.state = { Title: '', Year: '', Poster: ''};
 
     this.handleChangeMovieTitle = this.handleChangeMovieTitle.bind(this);
     this.handleChangeMovieYear = this.handleChangeMovieYear.bind(this);
@@ -25,9 +25,6 @@ class Create extends React.Component {
   handleChangeMoviePosterURL(e) {
     this.setState({ Poster: e.target.value }); //e.target.value is the value being passed from the event
   }
-
-
-
 
 
   handleSubmit(e) {
